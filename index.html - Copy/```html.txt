@@ -1,0 +1,1760 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Matter - المتجر والخدمات</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #07090e;
+            color: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            padding: 15px 40px;
+            background: rgba(11, 15, 25, 0.95);
+            border-bottom: 1px solid #1e3a8a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+        }
+
+        .nav-profile {
+            background: #0f172a;
+            border: 1px solid #3b82f6;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #60a5fa;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .nav-profile:hover {
+            background: #2563eb;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+        }
+
+        .nav-profile img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            justify-self: center;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #60a5fa;
+            text-shadow: 0 0 10px rgba(96, 165, 250, 0.4);
+        }
+
+        .nav-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid #3b82f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+            background: #000;
+        }
+
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ================= TOAST ================= */
+
+        #toastNotification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0f172a;
+            border: 1px solid #3b82f6;
+            color: #60a5fa;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+            text-align: right;
+            direction: rtl;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ================= SECTIONS ================= */
+
+        .section {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero-section {
+            position: relative;
+            width: 100%;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 40px 20px;
+        }
+
+        .hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.3) contrast(1.1);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 9, 14, 0.75);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+        }
+
+        .server-logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 2px solid #3b82f6;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+            background: #000;
+        }
+
+        .server-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: #60a5fa;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            font-weight: 850;
+            text-shadow: 0 0 25px rgba(37, 99, 235, 0.6);
+        }
+
+        .hero-content p {
+            color: #cbd5e1;
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        /* ================= TEAM ================= */
+
+        .team-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .team-header h1 {
+            font-size: 2.5rem;
+            color: #60a5fa;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .team-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .team-card {
+            background: #0b0f19;
+            border: 1px solid #1e3a8a;
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 2px solid #3b82f6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            background: #030712;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-role {
+            color: #60a5fa;
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .team-name {
+            color: #f8fafc;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .divider-title {
+            font-size: 1.8rem;
+            color: #60a5fa;
+            text-align: center;
+            margin: 40px 0 25px;
+            text-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+            border-bottom: 1px solid #1e3a8a;
+            padding-bottom: 10px;
+        }
+
+        /* ================= RULES ================= */
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .rule-card {
+            background: #0b0f19;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #1e3a8a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+        }
+
+        .rule-card h3 {
+            color: #60a5fa;
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 1px solid #1e3a8a;
+            padding-bottom: 12px;
+        }
+
+        .rule-card ul {
+            list-style: none;
+        }
+
+        .rule-card li {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            margin-bottom: 14px;
+            position: relative;
+            padding-right: 18px;
+            line-height: 1.6;
+        }
+
+        .rule-card li::before {
+            content: "•";
+            color: #3b82f6;
+            position: absolute;
+            right: 0;
+            font-size: 1.2rem;
+        }
+
+        /* ================= STORE ================= */
+
+        .store-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .store-header h1 {
+            font-size: 2.5rem;
+            color: #60a5fa;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .store-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .car-card {
+            background: #0b0f19;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #1e3a8a;
+            transition: all 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+        }
+
+        .car-image-container {
+            width: 100%;
+            height: 180px;
+            background: #030712;
+        }
+
+        .car-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .car-info {
+            padding: 20px;
+        }
+
+        .car-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #f8fafc;
+        }
+
+        .car-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        .buy-btn {
+            background: #1e3a8a;
+            color: #ffffff;
+            border: 1px solid #3b82f6;
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .buy-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+
+        /* ================= PROFILE MODAL ================= */
+
+        .profile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.88);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s ease;
+            z-index: 5000;
+            backdrop-filter: blur(7px);
+            padding: 20px;
+        }
+
+        .profile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .profile-box {
+            width: 100%;
+            max-width: 450px;
+            background: #0b0f19;
+            border: 1px solid #3b82f6;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.7);
+            position: relative;
+            transform: translateY(15px) scale(.97);
+            transition: .25s ease;
+        }
+
+        .profile-overlay.active .profile-box {
+            transform: translateY(0) scale(1);
+        }
+
+        .profile-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid #1e3a8a;
+            background: #030712;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .profile-close:hover {
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .profile-header {
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #3b82f6;
+            box-shadow: 0 0 25px rgba(59,130,246,.45);
+            margin-bottom: 15px;
+        }
+
+        .profile-username {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .profile-id {
+            color: #64748b;
+            font-size: .8rem;
+            margin-bottom: 25px;
+        }
+
+        .profile-section-title {
+            color: #60a5fa;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #1e3a8a;
+            padding-bottom: 8px;
+        }
+
+        .roles-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+            min-height: 35px;
+        }
+
+        .role-badge {
+            background: rgba(30,58,138,.35);
+            border: 1px solid #3b82f6;
+            color: #93c5fd;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: .85rem;
+        }
+
+        .no-roles {
+            color: #64748b;
+            font-size: .9rem;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ef4444;
+            background: rgba(127,29,29,.25);
+            color: #fca5a5;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        /* ================= RESERVATION MODAL ================= */
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 7, 18, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: #0b0f19;
+            border: 1px solid #3b82f6;
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .success-icon-container {
+            width: 60px;
+            height: 60px;
+            background: rgba(30, 58, 138, 0.4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            border: 1px solid #3b82f6;
+        }
+
+        .success-icon-container svg {
+            width: 30px;
+            height: 30px;
+            stroke: #60a5fa;
+            fill: none;
+            stroke-width: 2.5;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .modal-subtitle {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .modal-details-card {
+            background: #030712;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: right;
+            border: 1px solid #1e3a8a;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .detail-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .detail-value {
+            color: #60a5fa;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 1px solid #3b82f6;
+        }
+
+        .btn-secondary {
+            background: #030712;
+            color: #94a3b8;
+            border-color: #1e3a8a;
+        }
+
+        .btn-primary {
+            background: #1e3a8a;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 12px 15px;
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .nav-left {
+                justify-content: center;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="toastNotification">يلزم عليك تسجيل دخول</div>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <div class="nav-left">
+
+            <div class="nav-logo">
+                <img src="https://cdn.discordapp.com/attachments/1543674669654220912/1544715469179719830/image.png?ex=6a9ccfa3&is=6a9b7e23&hm=ddc168427dfd28cfabeb547a12e9d57fba77c6acc0dee5030992211d7227a677"
+                     alt="Dark Matter Logo">
+            </div>
+
+            <div id="authContainer">
+                <a href="https://discord.com/oauth2/authorize?client_id=1544781943147597954&response_type=token&redirect_uri=http%3A%2F%2F127.0.0.1%3A5500%2Findex.html&scope=identify"
+                   id="loginBtn"
+                   class="nav-profile">
+                    تسجيل دخول بالديسكورد
+                </a>
+            </div>
+
+        </div>
+
+        <div class="nav-links">
+            <a onclick="switchSection('home')" id="link-home" class="active">الرئيسية</a>
+            <a onclick="switchSection('team')" id="link-team">الإدارة</a>
+            <a onclick="switchSection('rules')" id="link-rules">القوانين</a>
+            <a onclick="checkStoreAccess()" id="link-store">المتجر</a>
+        </div>
+
+        <div></div>
+
+    </nav>
+
+
+    <!-- ================= HOME ================= -->
+
+    <div id="home" class="section active" style="max-width:100%;padding:0;">
+
+        <div class="hero-section">
+
+            <video autoplay muted loop class="hero-video-bg">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-41520-large.mp4"
+                        type="video/mp4">
+            </video>
+
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+
+                <div class="server-logo">
+                    <img src="https://cdn.discordapp.com/attachments/1543674669654220912/1544715469179719830/image.png?ex=6a9ccfa3&is=6a9b7e23&hm=ddc168427dfd28cfabeb547a12e9d57fba77c6acc0dee5030992211d7227a677"
+                         alt="Dark Matter Logo">
+                </div>
+
+                <h1>Dark Matter</h1>
+
+                <p>
+                    حياكم الله في متجر Dark Matter.
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ================= TEAM ================= -->
+
+    <div id="team" class="section">
+
+        <div class="team-header">
+            <h1>♕</h1>
+            <p>تعرف على فريق القيادة والتطوير الخاص بـ Dark Matter</p>
+        </div>
+
+
+        <h2 class="divider-title"></h2>
+
+        <div class="team-grid">
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://cdn.discordapp.com/attachments/1536436209503436810/1545534513239822446/image.png?ex=6a9d276e&is=6a9bd5ee&hm=c43d03585fc943ef33dacd5aece0321f9589b3f115287607c616a84172aca8f7">
+                </div>
+                <div class="team-role">Owner</div>
+                <div class="team-name">𝓜𝓞𝓗𝓐 𖣂</div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://cdn.discordapp.com/attachments/1536721987383070720/1546113581303726080/image.png?ex=6a9e99fb&is=6a9d487b&hm=3f489cf4bc551549c875b3eceba2c7a15ed37b5c274e9bbf58f966aa3c55292c">
+                </div>
+                <div class="team-role">Co Owner</div>
+                <div class="team-name">DM I ♔ MHM ♕</div>
+            </div>
+
+        </div>
+
+
+        <h2 class="divider-title">Founders</h2>
+
+        <div class="team-grid">
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://cdn.discordapp.com/attachments/1536436209503436810/1545751250535055360/image.png?ex=6a9d4888&is=6a9bf708&hm=ffb6baab53adad2f700fcdefd61a2c0710396a64941b629e25d04f23e2dfe1e6">
+                </div>
+                <div class="team-role">Founder</div>
+                <div class="team-name">𝗗𝗺 I BFB</div>
+            </div>
+
+        </div>
+
+
+        <h2 class="divider-title">Developers</h2>
+
+        <div class="team-grid">
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://cdn.discordapp.com/attachments/1536436209503436810/1545535287965515866/image.png?ex=6a9d2827&is=6a9bd6a7&hm=d13e451a606400b00d6fd396c19b67f8236eb3d4c1f961b48882bbf3dfeefebc">
+                </div>
+                <div class="team-role">DM | Dev Director</div>
+                <div class="team-name">𝗗𝗺 I Sabr</div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://cdn.discordapp.com/attachments/1536436209503436810/1545756776077594684/image.png?ex=6a9d4dae&is=6a9bfc2e&hm=954acf999e78530b472ec0bdc9b692179f235c7035b3033885bfc3604c91dfc4">
+                </div>
+                <div class="team-role">Developer</div>
+                <div class="team-name">𝗗𝗺 I ABDULLAH</div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://cdn.discordapp.com/attachments/1536436209503436810/1545536018839507065/image.png?ex=6a9d28d5&is=6a9bd755&hm=9b78a05db1657e3152bbabf96417f63848b2a92722d234571a482f97855a72f9">
+                </div>
+                <div class="team-role">Wed Designer</div>
+                <div class="team-name">𝗗𝗺 I ♛ABU NJMI ♛</div>
+            </div>
+
+        </div>
+
+
+        <h2 class="divider-title">High Management</h2>
+
+        <div class="team-grid">
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://cdn.discordapp.com/attachments/1536436209503436810/1545750234246815845/image.png?ex=6a9d4796&is=6a9bf616&hm=f5c43dfd034c10bcc7f8f4edfb855d419c65acb0548bae741eb1c8ae29d09ff4">
+                </div>
+                <div class="team-role">High Management</div>
+                <div class="team-name">Dm | MLK</div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar">
+                    <img src="https://cdn.discordapp.com/attachments/1536436209503436810/1545758250014605402/image.png?ex=6a9d4f0d&is=6a9bfd8d&hm=fe806eac6b761bbd4ec0f35e85c293edf341f11bd64f855fb4866cf156a707d3">
+                </div>
+                <div class="team-role">High Management</div>
+                <div class="team-name">𝗗𝗺 I ! Saud</div>
+            </div>
+
+        </div>
+
+
+        <!-- الإدارة الإضافية -->
+        <h2 class="divider-title">Management</h2>
+
+        <div class="team-grid">
+
+            <script>
+                for (let i = 1; i <= 30; i++) {
+                    document.write(`
+                        <div class="team-card">
+                            <div class="team-avatar">
+                                <img src="الصورة" alt="Management">
+                            </div>
+                            <div class="team-role">Management</div>
+                            <div class="team-name">الاسم ${i}</div>
+                        </div>
+                    `);
+                }
+            </script>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= RULES ================= -->
+
+    <div id="rules" class="section">
+
+        <div class="store-header">
+            <h1>الشروط والقوانين</h1>
+            <p>القواعد التنظيمية الأساسية لـ Dark Matter</p>
+        </div>
+
+        <div class="rules-grid">
+
+            <div class="rule-card">
+                <h3>القوانين العامة</h3>
+                <ul>
+                    <li>احترام الإدارة وجميع الأعضاء بشكل كامل.</li>
+                    <li>يمنع استخدام البرامج المساعدة أو الثغرات.</li>
+                    <li>الالتزام بتعليمات الإدارة.</li>
+                    <li>التعاون مع أعضاء المجتمع.</li>
+                </ul>
+            </div>
+
+            <div class="rule-card">
+                <h3>قوانين المتجر والخدمات</h3>
+                <ul>
+                    <li>الالتزام بتسليم الطلبات بالمواصفات المتفق عليها.</li>
+                    <li>يمنع إعادة بيع المنتجات دون إذن.</li>
+                    <li>احترام حقوق الملكية الفكرية.</li>
+                    <li>التواصل عبر التذاكر الرسمية.</li>
+                </ul>
+            </div>
+
+            <div class="rule-card">
+                <h3>قوانين الدعم الفني</h3>
+                <ul>
+                    <li>شرح المشكلة بشكل واضح داخل التذكرة.</li>
+                    <li>يمنع فتح تذاكر وهمية.</li>
+                    <li>الالتزام بآداب الحوار.</li>
+                    <li>تأكيد استلام الطلب بعد الانتهاء.</li>
+                </ul>
+            </div>
+
+            <div class="rule-card">
+                <h3>قوانين الأمان والحماية</h3>
+                <ul>
+                    <li>الحفاظ على سرية بيانات الحساب.</li>
+                    <li>تفعيل التحقق بخطوتين.</li>
+                    <li>الإبلاغ عن المشاكل الأمنية.</li>
+                    <li>التعاون مع الإدارة.</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= STORE ================= -->
+
+    <div id="store" class="section">
+
+        <div class="store-header">
+            <h1>متجر Dark Matter</h1>
+            <p>مرحباً بك في متجر Dark Matter الرسمي للمركبات والخدمات</p>
+        </div>
+
+        <div class="cars-grid" id="storeContainer"></div>
+
+    </div>
+
+
+    <!-- ================= RESERVATION MODAL ================= -->
+
+    <div class="modal-overlay" id="reservationModal">
+
+        <div class="modal-box">
+
+            <div class="success-icon-container">
+                <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+
+            <div class="modal-title">
+                تأكيد حجز المنتج
+            </div>
+
+            <div class="modal-subtitle">
+                لقد قمت باختيار حجز المنتج التالي:
+            </div>
+
+            <div class="modal-details-card">
+
+                <div class="detail-row">
+                    <span class="detail-label">اسم المنتج:</span>
+                    <span class="detail-value" id="modalCarName">-</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">السعر الإجمالي:</span>
+                    <span class="detail-value" id="modalCarPrice">-</span>
+                </div>
+
+            </div>
+
+            <div class="modal-buttons">
+
+                <button class="modal-btn btn-secondary" onclick="closeModal()">
+                    إلغاء
+                </button>
+
+                <button class="modal-btn btn-primary" onclick="confirmReservation()">
+                    تأكيد الحجز وإرسال للديسكورد
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= PROFILE ================= -->
+
+    <div class="profile-overlay" id="profileOverlay">
+
+        <div class="profile-box">
+
+            <button class="profile-close" onclick="closeProfile()">
+                ✕
+            </button>
+
+            <div class="profile-header">
+
+                <img id="profileAvatar"
+                     class="profile-avatar"
+                     src="https://cdn.discordapp.com/embed/avatars/0.png"
+                     alt="Avatar">
+
+                <div class="profile-username" id="profileUsername">
+                    المستخدم
+                </div>
+
+                <div class="profile-id" id="profileId">
+                    Discord ID: غير معروف
+                </div>
+
+            </div>
+
+            <div class="profile-section-title">
+                🎖️ الرولات
+            </div>
+
+            <div class="roles-container" id="rolesContainer">
+
+                <span class="no-roles">
+                    لا توجد رولات معروضة حالياً
+                </span>
+
+            </div>
+
+            <button class="logout-btn" onclick="logoutDiscord()">
+                🚪 تسجيل خروج
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* ================= USER ================= */
+
+        let currentUserName =
+            localStorage.getItem('discord_username') || "";
+
+        let currentUserAvatar =
+            localStorage.getItem('discord_avatar') || "";
+
+        let currentUserId =
+            localStorage.getItem('discord_id') || "";
+
+        let currentUserRoles =
+            JSON.parse(localStorage.getItem('discord_roles') || "[]");
+
+        let selectedProduct = {
+            name: "",
+            price: ""
+        };
+
+
+        /* ================= WEBHOOK ================= */
+
+        const WEBHOOK_URL =
+            'https://discord.com/api/webhooks/1545089189740028075/aevtagW0sLXkfl57LXmyQiBNTxksOOmN5MWKduk-_Iw9k7IPJmRtcT8w3s5qqz96b0';
+
+
+        /* ================= PRODUCTS ================= */
+
+        const storeProducts = [
+
+            {
+                name: "سيارة خاصة 1",
+                price: "6.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417188690468936/Screenshot_2026-08-14_085316.png?ex=6a9ba6a8&is=6a9a5528&hm=22004cd5a3f62c22bf559e91eca6f0beb36d4389113603561f9e650632486dfb"
+            },
+
+            {
+                name: "سيارة خاصة 2",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417250892259438/Screenshot_2026-08-14_085126.png?ex=6a9ba6b7&is=6a9a5537&hm=75e7df9ef2c5e34cfffcb9218684e2af02598edc20ecf0fa9156a88f16e37e64"
+            },
+
+            {
+                name: "سيارة خاصة 3",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417324284055663/Screenshot_2026-08-14_084925.png?ex=6a9ba6c8&is=6a9a5548&hm=9347471e9c6dc150aa1cf19c7a4bb068a894597e4a1003c552ffe88c4a714223"
+            },
+
+            {
+                name: "سيارة خاصة 4",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417676328636436/Screenshot_2026-08-14_084355.png?ex=6a9ba71c&is=6a9a559c&hm=cc46068e4829c383bf58e6b26c5e1f9528cbb497c0d0201f37b540ec61cbfef8"
+            },
+
+            {
+                name: "سيارة خاصة 5",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417894445027349/Screenshot_2026-08-14_084159.png?ex=6a9ba750&is=6a9a55d0&hm=5b2e20df5e89c66d96a4b93620d90e7658b386250d2d935cd00f105363ab8299"
+            },
+
+            {
+                name: "سيارة خاصة 6",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417967333642300/Screenshot_2026-08-14_083931.png?ex=6a9ba761&is=6a9a55e1&hm=65d5c087c65d73e21a2f57c7e0a55c792441c6f879598fff74cca4b462d7829a"
+            },
+
+            {
+                name: "سيارة خاصة 7",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417997016866846/Screenshot_2026-08-14_083324.png?ex=6a9ba768&is=6a9a55e8&hm=6700567c5978a9d88fb9b30536e9036111738b5f1c72a2d385a52bf983f05327"
+            },
+
+            {
+                name: "سيارة خاصة 8",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538418035566575636/Screenshot_2026-08-14_083220.png?ex=6a9ba772&is=6a9a55f2&hm=963300a05fa712b1e355b9b163553dbc3a64c871a71a6fa61a39b7b1587f74c6"
+            },
+
+            {
+                name: "سيارة خاصة 9",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538418049861034077/Screenshot_2026-08-14_083145.png?ex=6a9ba775&is=6a9a55f5&hm=91f28fa95bd05a8bb6f0a5044f3bb096c11049527e7a53103d6fb92956ee5352"
+            },
+
+            {
+                name: "سيارة خاصة 10",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538418066466279434/Screenshot_2026-08-14_083106.png?ex=6a9ba779&is=6a9a55f9&hm=0dc978b8b815f075fe70ba72168717cf9f45c173e3d5caf98532384cc127d0e2"
+            },
+
+            {
+                name: "سيارة خاصة 11",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538418080466600026/Screenshot_2026-08-14_083022.png?ex=6a9ba77c&is=6a9a55fc&hm=31c2523141168032f683d06bbca1a5e4ed5ff1e8dfcb94b67d9187e87cd822de"
+            },
+
+            {
+                name: "سيارة خاصة 12",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538418170640080926/Screenshot_2026-08-14_085333.png?ex=6a9ba792&is=6a9a5612&hm=b48cbc0f5ef9c8f447908d3a0feed4aab88d794e4473fe339c8d4f2d160aa4e6"
+            },
+
+            {
+                name: "سيارة خاصة 13",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1539578317877944342/Screenshot_2026-08-19_130454.png?ex=6a9b42ca&is=6a99f14a&hm=494095a9f82e74f78d05e3297cab83bfe4a53163c444020a556b51479c3eda21"
+            },
+
+            {
+                name: "سيارة خاصة 14",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1539578361863602176/Screenshot_2026-08-19_130534.png?ex=6a9b42d5&is=6a99f155&hm=c419b86520d4f8b6851d3ff7cc50b40363977bcb67821a7d96279f3f00f7e3a9"
+            },
+
+            {
+                name: "سيارة خاصة 15",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1539578381501468712/Screenshot_2026-08-19_130551.png?ex=6a9b42da&is=6a99f15a&hm=facee2f8d1079e85f1f314d88f8d91f5f4e0d266e94ba5aa64bef912d9a25fce"
+            },
+
+            {
+                name: "سيارة خاصة 16",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1539578399230656512/Screenshot_2026-08-19_130511.png?ex=6a9b42de&is=6a99f15e&hm=1867eb6c4dd338f22a8c5a6b2543ce40aea2aa32e5f790a3aae0ba68742b5e4a"
+            },
+
+            {
+                name: "سيارة خاصة 17",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1539578422484017242/Screenshot_2026-08-19_130609.png?ex=6a9b42e3&is=6a99f163&hm=6c4e880a68953eeacec6cf39afa34f760efb9ee99437aada3cd42e5f424e8bed"
+            },
+
+            {
+                name: "سيارة خاصة 18",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1539578476443602955/Screenshot_2026-08-19_131234.png?ex=6a9b42f0&is=6a99f170&hm=bb4e597172b5356798ddfe0cfc62695b304eba75f9f513e9bf13acf017c54884"
+            },
+
+            {
+                name: "سيارة خاصة 19",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417188690468936/Screenshot_2026-08-14_085316.png?ex=6a9ba6a8&is=6a9a5528&hm=22004cd5a3f62c22bf559e91eca6f0beb36d4389113603561f9e650632486dfb"
+            },
+
+            {
+                name: "سيارة خاصة 20",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417250892259438/Screenshot_2026-08-14_085126.png?ex=6a9ba6b7&is=6a9a5537&hm=75e7df9ef2c5e34cfffcb9218684e2af02598edc20ecf0fa9156a88f16e37e64"
+            },
+
+            {
+                name: "سيارة خاصة 21",
+                price: "4.99$",
+                image: "https://cdn.discordapp.com/attachments/1531116211218288772/1538417324284055663/Screenshot_2026-08-14_084925.png?ex=6a9ba6c8&is=6a9a5548&hm=9347471e9c6dc150aa1cf19c7a4bb068a894597e4a1003c552ffe88c4a714223"
+            }
+
+        ];
+
+
+        /* ================= STORE GENERATOR ================= */
+
+        const storeContainer =
+            document.getElementById('storeContainer');
+
+        if (storeContainer) {
+
+            storeProducts.forEach(product => {
+
+                const card =
+                    document.createElement('div');
+
+                card.className = 'car-card';
+
+                card.innerHTML = `
+
+                    <div class="car-image-container">
+                        <img src="${product.image}"
+                             alt="${product.name}">
+                    </div>
+
+                    <div class="car-info">
+
+                        <div class="car-title">
+                            ${product.name}
+                        </div>
+
+                        <div class="car-footer">
+
+                            <span class="price">
+                                ${product.price}
+                            </span>
+
+                            <button class="buy-btn"
+                                onclick="openModal('${product.name}', '${product.price}')">
+                                حجز
+                            </button>
+
+                        </div>
+
+                    </div>
+                `;
+
+                storeContainer.appendChild(card);
+
+            });
+
+        }
+
+
+        /* ================= NAVIGATION ================= */
+
+        function switchSection(sectionId) {
+
+            document
+                .querySelectorAll('.section')
+                .forEach(sec =>
+                    sec.classList.remove('active')
+                );
+
+            document
+                .getElementById(sectionId)
+                .classList.add('active');
+
+            document
+                .querySelectorAll('.nav-links a')
+                .forEach(link =>
+                    link.classList.remove('active')
+                );
+
+            const activeLink =
+                document.getElementById(
+                    'link-' + sectionId
+                );
+
+            if (activeLink)
+                activeLink.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+
+        /* ================= STORE ACCESS ================= */
+
+        function checkStoreAccess() {
+
+            if (!currentUserName) {
+
+                const toast =
+                    document.getElementById(
+                        'toastNotification'
+                    );
+
+                toast.style.display = 'block';
+
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+
+            } else {
+
+                switchSection('store');
+
+            }
+
+        }
+
+
+        /* ================= RESERVATION ================= */
+
+        function openModal(name, price) {
+
+            if (!currentUserName) {
+                checkStoreAccess();
+                return;
+            }
+
+            selectedProduct = {
+                name,
+                price
+            };
+
+            document.getElementById(
+                'modalCarName'
+            ).innerText = name;
+
+            document.getElementById(
+                'modalCarPrice'
+            ).innerText = price;
+
+            document
+                .getElementById('reservationModal')
+                .classList.add('active');
+        }
+
+
+        function closeModal() {
+
+            document
+                .getElementById('reservationModal')
+                .classList.remove('active');
+
+        }
+
+
+        function confirmReservation() {
+
+            if (!currentUserName) {
+                closeModal();
+                return;
+            }
+
+            const payload = {
+
+                content:
+                    `🚗 **حجز منتج جديد من المتجر!**\n` +
+                    `👤 **المحجِز:** ${currentUserName}\n` +
+                    `🆔 **ID:** ${currentUserId || "غير معروف"}\n` +
+                    `🚘 **المنتج:** ${selectedProduct.name}\n` +
+                    `💰 **السعر:** ${selectedProduct.price}`
+
+            };
+
+            fetch(WEBHOOK_URL, {
+
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify(payload)
+
+            })
+            .then(() => {
+
+                alert(
+                    'تم إرسال طلب الحجز بنجاح إلى الديسكورد! يرجى فتح تكت متجر للاستلام.'
+                );
+
+                closeModal();
+
+            })
+            .catch(err => {
+
+                console.error(err);
+
+                alert(
+                    'حدث خطأ أثناء إرسال الحجز.'
+                );
+
+            });
+
+        }
+
+
+        /* ================= PROFILE ================= */
+
+        function openProfile() {
+
+            if (!currentUserName)
+                return;
+
+            document.getElementById(
+                'profileUsername'
+            ).innerText = currentUserName;
+
+            document.getElementById(
+                'profileAvatar'
+            ).src =
+                currentUserAvatar ||
+                'https://cdn.discordapp.com/embed/avatars/0.png';
+
+            document.getElementById(
+                'profileId'
+            ).innerText =
+                'Discord ID: ' +
+                (currentUserId || 'غير معروف');
+
+            renderRoles();
+
+            document
+                .getElementById('profileOverlay')
+                .classList.add('active');
+
+        }
+
+
+        function closeProfile() {
+
+            document
+                .getElementById('profileOverlay')
+                .classList.remove('active');
+
+        }
+
+
+        function renderRoles() {
+
+            const container =
+                document.getElementById(
+                    'rolesContainer'
+                );
+
+            container.innerHTML = '';
+
+            if (
+                !Array.isArray(currentUserRoles) ||
+                currentUserRoles.length === 0
+            ) {
+
+                container.innerHTML = `
+                    <span class="no-roles">
+                        لا توجد رولات معروضة حالياً
+                    </span>
+                `;
+
+                return;
+            }
+
+            currentUserRoles.forEach(role => {
+
+                const badge =
+                    document.createElement('span');
+
+                badge.className =
+                    'role-badge';
+
+                badge.innerText =
+                    typeof role === 'string'
+                        ? role
+                        : role.name || 'Role';
+
+                container.appendChild(badge);
+
+            });
+
+        }
+
+
+        /* ================= LOGOUT ================= */
+
+        function logoutDiscord() {
+
+            localStorage.removeItem(
+                'discord_username'
+            );
+
+            localStorage.removeItem(
+                'discord_avatar'
+            );
+
+            localStorage.removeItem(
+                'discord_id'
+            );
+
+            localStorage.removeItem(
+                'discord_roles'
+            );
+
+            currentUserName = "";
+            currentUserAvatar = "";
+            currentUserId = "";
+            currentUserRoles = [];
+
+            closeProfile();
+
+            updateAuthUI();
+
+            switchSection('home');
+
+            alert(
+                'تم تسجيل خروجك من الحساب بنجاح.'
+            );
+
+        }
+
+
+        /* ================= AUTH UI ================= */
+
+        function updateAuthUI() {
+
+            const authContainer =
+                document.getElementById(
+                    'authContainer'
+                );
+
+            if (currentUserName) {
+
+                authContainer.innerHTML = `
+
+                    <button
+                        class="nav-profile"
+                        onclick="openProfile()"
+                        type="button">
+
+                        <img
+                            src="${currentUserAvatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}"
+                            alt="Avatar">
+
+                        <span>
+                            ${currentUserName}
+                        </span>
+
+                    </button>
+
+                `;
+
+            } else {
+
+                authContainer.innerHTML = `
+
+                    <a
+                        href="https://discord.com/oauth2/authorize?client_id=1544781943147597954&response_type=token&redirect_uri=http%3A%2F%2F127.0.0.1%3A5500%2Findex.html&scope=identify"
+                        id="loginBtn"
+                        class="nav-profile">
+
+                        تسجيل دخول بالديسكورد
+
+                    </a>
+
+                `;
+
+            }
+
+        }
+
+
+        /* ================= DISCORD LOGIN ================= */
+
+        window.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                const fragment =
+                    window.location.hash.substring(1);
+
+                const params =
+                    new URLSearchParams(fragment);
+
+                const accessToken =
+                    params.get('access_token');
+
+                if (accessToken) {
+
+                    fetch(
+                        'https://discord.com/api/users/@me',
+                        {
+                            headers: {
+                                authorization:
+                                    `Bearer ${accessToken}`
+                            }
+                        }
+                    )
+
+                    .then(res => res.json())
+
+                    .then(data => {
+
+                        currentUserName =
+                            data.global_name ||
+                            data.username;
+
+                        currentUserId =
+                            data.id;
+
+                        currentUserAvatar =
+                            data.avatar
+                                ? `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png`
+                                : 'https://cdn.discordapp.com/embed/avatars/0.png';
+
+                        /*
+                         * ملاحظة:
+                         * Discord OAuth /users/@me
+                         * لا يرجع رولات السيرفر.
+                         *
+                         * نضع الرولات هنا مؤقتاً ويمكن
+                         * ربطها لاحقاً بالـ Bot + Backend.
+                         */
+
+                        currentUserRoles = [];
+
+                        localStorage.setItem(
+                            'discord_username',
+                            currentUserName
+                        );
+
+                        localStorage.setItem(
+                            'discord_avatar',
+                            currentUserAvatar
+                        );
+
+                        localStorage.setItem(
+                            'discord_id',
+                            currentUserId
+                        );
+
+                        localStorage.setItem(
+                            'discord_roles',
+                            JSON.stringify(
+                                currentUserRoles
+                            )
+                        );
+
+                        updateAuthUI();
+
+                        window.history.replaceState(
+                            {},
+                            document.title,
+                            window.location.pathname
+                        );
+
+                    })
+
+                    .catch(console.error);
+
+                } else {
+
+                    updateAuthUI();
+
+                }
+
+            }
+        );
+
+
+        /* ================= CLOSE MODALS ================= */
+
+        document
+            .getElementById('profileOverlay')
+            .addEventListener('click', function(e) {
+
+                if (e.target === this)
+                    closeProfile();
+
+            });
+
+
+        document
+            .getElementById('reservationModal')
+            .addEventListener('click', function(e) {
+
+                if (e.target === this)
+                    closeModal();
+
+            });
+
+    </script>
+
+</body>
+</html>
+```
