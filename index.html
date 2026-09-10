@@ -403,6 +403,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
         }
 
         .team-role {
@@ -880,7 +881,285 @@
             flex-wrap: wrap;
         }
 
-    </style>
+    
+        /* ================= SITE ADMIN ================= */
+        .site-admin-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 70px;
+        }
+
+        .site-admin-hero {
+            background: linear-gradient(135deg, rgba(29,78,216,.25), rgba(11,15,25,.95));
+            border: 1px solid #2563eb;
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 22px;
+        }
+
+        .site-admin-hero h1 {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .site-admin-hero p,
+        .admin-box-head p {
+            color: #94a3b8;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 18px;
+        }
+
+        .admin-box {
+            background: #0b0f19;
+            border: 1px solid #1e3a8a;
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        .admin-box-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .admin-plus {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid #60a5fa;
+            background: #1d4ed8;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .admin-email-box {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .admin-email-box input {
+            flex: 1;
+            min-width: 0;
+            padding: 11px 12px;
+            background: #111827;
+            border: 1px solid #334155;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .admin-email-box button,
+        .order-admin-actions button,
+        .order-admin-actions select {
+            padding: 9px 12px;
+            border-radius: 9px;
+            border: 1px solid #2563eb;
+            background: #1d4ed8;
+            color: white;
+            cursor: pointer;
+        }
+
+        .admin-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .admin-row {
+            border: 1px solid #1e293b;
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .admin-row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-remove {
+            border: 0;
+            background: #7f1d1d;
+            color: white;
+            border-radius: 8px;
+            padding: 7px 10px;
+            cursor: pointer;
+        }
+
+        .order-admin-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .admin-empty {
+            color: #94a3b8;
+            text-align: center;
+            padding: 18px;
+            border: 1px dashed #334155;
+            border-radius: 12px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            color: #ffffff !important;
+            background: #1d4ed8;
+            border: 1px solid #3b82f6;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    
+        /* ===== FIX: keep all navbar buttons visible after Discord login ===== */
+        .navbar {
+            grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto !important;
+            gap: 14px;
+        }
+
+        .nav-links {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            justify-self: stretch !important;
+            gap: 8px !important;
+            flex-wrap: wrap !important;
+            min-width: 0;
+        }
+
+        .nav-links a {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            padding: 8px 11px !important;
+            border-radius: 10px !important;
+            background: #1d4ed8 !important;
+            border: 1px solid #3b82f6 !important;
+            color: #fff !important;
+            white-space: nowrap;
+        }
+
+        #link-site-admin {
+            display: inline-flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .nav-profile-group {
+            max-width: 260px;
+        }
+
+        .nav-profile span {
+            max-width: 130px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                grid-template-columns: 1fr !important;
+                padding: 12px 14px !important;
+            }
+
+            .nav-left,
+            .nav-links {
+                justify-self: center !important;
+                justify-content: center !important;
+            }
+
+            .nav-logo {
+                justify-self: center;
+            }
+        }
+
+
+        /* ===== HOME CINEMATIC IMAGE TRANSITION ===== */
+        .home-slider {
+            position: relative;
+            width: min(1000px, 92vw);
+            height: clamp(260px, 48vw, 560px);
+            margin: 24px auto 0;
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid #1e3a8a;
+            background: #05070c;
+            box-shadow: 0 20px 55px rgba(0,0,0,.45);
+        }
+
+        .home-slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform: none !important;
+        }
+
+        .home-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.08);
+            transition:
+                opacity 1.15s ease,
+                transform 4.8s ease,
+                visibility 0s linear 1.15s;
+        }
+
+        .home-slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 2;
+            transition:
+                opacity 1.15s ease,
+                transform 4.8s ease,
+                visibility 0s;
+        }
+
+        .home-slide img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .home-slider::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            background: linear-gradient(
+                to top,
+                rgba(0,0,0,.32),
+                transparent 42%,
+                rgba(0,0,0,.08)
+            );
+        }
+
+        .home-slider-btn,
+        .home-slider-dots {
+            display: none !important;
+        }
+
+</style>
 </head>
 
 <body>
@@ -932,6 +1211,12 @@
                 المتجر
             </a>
 
+            <a onclick="switchSection('site-admin'); renderSiteAdmin();"
+               id="link-site-admin"
+               style="display:inline-flex !important;">
+                إدارة الموقع
+            </a>
+
         </div>
 
         <div></div>
@@ -979,7 +1264,7 @@
 
                         <div class="home-slides" id="homeSlides">
 
-                            <div class="home-slide">
+                            <div class="home-slide active">
                                 <img src="images/asset3.png" alt="صورة إدارة 1">
 </div>
 
@@ -1048,8 +1333,7 @@
 
                 <div class="team-avatar">
 
-                    <img
-                        src="https://cdn.discordapp.com/attachments/1536436209503436810/1545534513239822446/image.png?ex=6a9d276e&is=6a9bd5ee&hm=c43d03585fc943ef33dacd5aece0321f9589b3f115287607c616a84172aca8f7">
+                    <img src="images/owner-moha.png">
 
                 </div>
 
@@ -1068,8 +1352,7 @@
 
                 <div class="team-avatar">
 
-                    <img
-                        src="https://cdn.discordapp.com/attachments/1536721987383070720/1546113581303726080/image.png?ex=6a9e99fb&is=6a9d487b&hm=3f489cf4bc551549c875b3eceba2c7a15ed37b5c274e9bbf58f966aa3c55292c">
+                    <img src="images/co-owner-mhm.png">
 
                 </div>
 
@@ -1098,8 +1381,7 @@
 
                 <div class="team-avatar">
 
-                    <img
-                        src="https://cdn.discordapp.com/attachments/1536436209503436810/1545751250535055360/image.png?ex=6a9d4888&is=6a9bf708&hm=ffb6baab53adad2f700fcdefd61a2c0710396a64941b629e25d04f23e2dfe1e6">
+                    <img src="images/founder-bfb.png">
 
                 </div>
 
@@ -1128,8 +1410,7 @@
 
                 <div class="team-avatar">
 
-                    <img
-                        src="https://cdn.discordapp.com/attachments/1536436209503436810/1545535287965515866/image.png?ex=6a9d2827&is=6a9bd6a7&hm=d13e451a606400b00d6fd396c19b67f8236eb3d4c1f961b48882bbf3dfeefebc">
+                    <img src="images/dev-sabr.png">
 
                 </div>
 
@@ -1148,8 +1429,7 @@
 
                 <div class="team-avatar">
 
-                    <img
-                        src="https://cdn.discordapp.com/attachments/1536436209503436810/1545756776077594684/image.png?ex=6a9d4dae&is=6a9bfc2e&hm=954acf999e78530b472ec0bdc9b692179f235c7035b3033885bfc3604c91dfc4">
+                    <img src="images/dev-abdullah.png">
 
                 </div>
 
@@ -1168,8 +1448,7 @@
 
                 <div class="team-avatar">
 
-                    <img
-                        src="https://cdn.discordapp.com/attachments/1536436209503436810/1545536018839507065/image.png?ex=6a9d28d5&is=6a9bd755&hm=9b78a05db1657e3152bbabf96417f63848b2a92722d234571a482f97855a72f9">
+                    <img src="images/web-abunjmi.png">
 
                 </div>
 
@@ -3097,6 +3376,161 @@
         }
 
 
+
+        /* ================= SITE ADMIN SYSTEM ================= */
+
+        function getSiteSupervisors() {
+            try {
+                return JSON.parse(localStorage.getItem('dm_site_supervisors') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveSiteSupervisors(list) {
+            localStorage.setItem('dm_site_supervisors', JSON.stringify(list));
+        }
+
+        function toggleAdminEmailBox() {
+            const box = document.getElementById('adminEmailBox');
+            if (!box) return;
+            box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function addSiteSupervisor() {
+            const input = document.getElementById('adminEmailInput');
+            if (!input) return;
+
+            const email = input.value.trim().toLowerCase();
+
+            if (!email || !email.includes('@')) {
+                alert('اكتب بريد صحيح.');
+                return;
+            }
+
+            const list = getSiteSupervisors();
+
+            if (!list.includes(email)) {
+                list.push(email);
+                saveSiteSupervisors(list);
+            }
+
+            input.value = '';
+            renderSiteSupervisors();
+        }
+
+        function removeSiteSupervisor(email) {
+            const list = getSiteSupervisors().filter(item => item !== email);
+            saveSiteSupervisors(list);
+            renderSiteSupervisors();
+        }
+
+        function renderSiteSupervisors() {
+            const box = document.getElementById('siteSupervisorsList');
+            if (!box) return;
+
+            const list = getSiteSupervisors();
+
+            if (!list.length) {
+                box.innerHTML = '<div class="admin-empty">ما أضفت مشرفين للحين.</div>';
+                return;
+            }
+
+            box.innerHTML = list.map(email => `
+                <div class="admin-row">
+                    <div class="admin-row-top">
+                        <strong>${email}</strong>
+                        <button class="admin-remove" type="button"
+                                onclick="removeSiteSupervisor('${email}')">
+                            حذف
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getSiteOrders() {
+            try {
+                return JSON.parse(localStorage.getItem('dm_orders') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveSiteOrders(orders) {
+            localStorage.setItem('dm_orders', JSON.stringify(orders));
+        }
+
+        function renderSiteOrders() {
+            const box = document.getElementById('siteOrdersList');
+            if (!box) return;
+
+            const orders = getSiteOrders().sort((a, b) =>
+                (b.createdAtRaw || 0) - (a.createdAtRaw || 0)
+            );
+
+            if (!orders.length) {
+                box.innerHTML = '<div class="admin-empty">لا توجد طلبات حالياً.</div>';
+                return;
+            }
+
+            box.innerHTML = orders.map(order => `
+                <div class="admin-row">
+                    <strong>${order.product || order.name || 'طلب'}</strong>
+                    <div style="margin-top:7px;color:#cbd5e1;font-size:14px;">
+                        <div>رقم الطلب: ${order.id || '-'}</div>
+                        <div>المشتري: ${order.customerName || order.buyerName || '-'}</div>
+                        <div>التاريخ: ${order.createdAt || '-'}</div>
+                        <div>الحالة: ${order.status || 'جديد'}</div>
+                    </div>
+
+                    <div class="order-admin-actions">
+                        <button type="button" onclick="adminReceiveOrder('${order.id}')">
+                            استلام الطلب
+                        </button>
+
+                        <select onchange="adminChangeOrderStatus('${order.id}', this.value)">
+                            <option value="">تغيير الحالة</option>
+                            <option value="جاري تجهيز الطلب">جاري تجهيز الطلب</option>
+                            <option value="جاهز للتسليم">جاهز للتسليم</option>
+                            <option value="تم التسليم">تم التسليم</option>
+                            <option value="ملغي">ملغي</option>
+                        </select>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function adminReceiveOrder(id) {
+            const orders = getSiteOrders();
+            const order = orders.find(item => item.id === id);
+            if (!order) return;
+
+            order.status = 'تم استلام الطلب';
+            order.receivedBy = currentUserEmail || currentUserName || 'مشرف الموقع';
+
+            saveSiteOrders(orders);
+            renderSiteOrders();
+        }
+
+        function adminChangeOrderStatus(id, status) {
+            if (!status) return;
+
+            const orders = getSiteOrders();
+            const order = orders.find(item => item.id === id);
+            if (!order) return;
+
+            order.status = status;
+            saveSiteOrders(orders);
+            renderSiteOrders();
+        }
+
+        function renderSiteAdmin() {
+            renderSiteSupervisors();
+            renderSiteOrders();
+        }
+
+
         /* ================= DISCORD LOGIN ================= */
 
         window.addEventListener(
@@ -3236,63 +3670,43 @@
 
 
 
-        /* ================= HOME SLIDER ================= */
+        /* ================= HOME CINEMATIC SLIDESHOW ================= */
 
         let homeSlideIndex = 0;
-        let homeSliderInterval;
+        let homeSliderInterval = null;
 
-        function buildHomeSliderDots() {
-            const dotsContainer = document.getElementById('homeSliderDots');
-            const total = document.querySelectorAll('.home-slide').length;
-            if (!dotsContainer) return;
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < total; i++) {
-                const dot = document.createElement('button');
-                dot.className = 'home-slider-dot' + (i === homeSlideIndex ? ' active' : '');
-                dot.type = 'button';
-                dot.onclick = () => setHomeSlide(i);
-                dotsContainer.appendChild(dot);
-            }
-        }
+        function showHomeSlide(index) {
+            const slides = [...document.querySelectorAll('.home-slide')];
+            if (!slides.length) return;
 
-        function updateHomeSlider() {
-            const slides = document.getElementById('homeSlides');
-            const dots = document.querySelectorAll('.home-slider-dot');
+            homeSlideIndex = (index + slides.length) % slides.length;
 
-            if (!slides) return;
-
-            slides.style.transform = `translateX(-${homeSlideIndex * 100}%)`;
-
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === homeSlideIndex);
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === homeSlideIndex);
             });
         }
 
-        function setHomeSlide(index) {
-            const total = document.querySelectorAll('.home-slide').length;
-            homeSlideIndex = (index + total) % total;
-            updateHomeSlider();
-            restartHomeSlider();
-        }
-
-        function moveHomeSlide(step) {
-            setHomeSlide(homeSlideIndex + step);
-        }
-
         function startHomeSlider() {
+            clearInterval(homeSliderInterval);
             homeSliderInterval = setInterval(() => {
-                setHomeSlide(homeSlideIndex + 1);
-            }, 3500);
+                showHomeSlide(homeSlideIndex + 1);
+            }, 4500);
         }
 
-        function restartHomeSlider() {
-            clearInterval(homeSliderInterval);
+        function setHomeSlide(index) {
+            showHomeSlide(index);
             startHomeSlider();
         }
 
-        buildHomeSliderDots();
-        updateHomeSlider();
-        startHomeSlider();
+        function moveHomeSlide(step) {
+            showHomeSlide(homeSlideIndex + step);
+            startHomeSlider();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            showHomeSlide(0);
+            startHomeSlider();
+        });
 
         /* ================= CLOSE PROFILE ================= */
 
