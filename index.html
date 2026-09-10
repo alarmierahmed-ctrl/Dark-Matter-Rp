@@ -853,7 +853,222 @@
                 font-size: 2.5rem;
             }
         }
+    
+        /* ================= PROFILE / ORDERS / STORE ADMIN ================= */
+
+        .orders-wrap,
+        .store-admin-wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 35px 20px 60px;
+        }
+
+        .orders-title,
+        .store-admin-title {
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .orders-subtitle,
+        .store-admin-subtitle {
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .order-card {
+            background: #0b0f19;
+            border: 1px solid #1e3a8a;
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        .order-card h3 {
+            margin-bottom: 12px;
+            color: #f8fafc;
+        }
+
+        .order-meta {
+            display: grid;
+            gap: 8px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .order-status {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(59, 130, 246, .14);
+            border: 1px solid #2563eb;
+            color: #bfdbfe;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .order-progress {
+            margin-top: 16px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .order-step {
+            padding: 9px 11px;
+            border-radius: 10px;
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .order-step.done {
+            color: #dcfce7;
+            border-color: #166534;
+            background: rgba(22, 101, 52, .15);
+        }
+
+        .admin-order-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .admin-order-actions button,
+        .admin-order-actions select {
+            border: 1px solid #334155;
+            background: #111827;
+            color: #f8fafc;
+            border-radius: 9px;
+            padding: 9px 10px;
+            cursor: pointer;
+        }
+
+        .admin-order-actions button {
+            border-color: #2563eb;
+            background: #1d4ed8;
+        }
+
+        .empty-state {
+            padding: 24px;
+            background: #0b0f19;
+            border: 1px dashed #334155;
+            border-radius: 16px;
+            color: #94a3b8;
+            text-align: center;
+        }
+
+        #link-store-admin {
+            display: none;
+        }
+
+    
+        .staff-access-panel {
+            background: #0b0f19;
+            border: 1px solid #1e3a8a;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 22px;
+        }
+
+        .staff-access-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .staff-access-head h3 {
+            margin: 0 0 4px;
+        }
+
+        .staff-access-head small {
+            color: #94a3b8;
+        }
+
+        .staff-add-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: #2563eb;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .staff-add-box {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .staff-add-box input {
+            flex: 1;
+            min-width: 0;
+            padding: 11px 12px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #111827;
+            color: #fff;
+        }
+
+        .staff-add-box button {
+            padding: 10px 16px;
+            border: 0;
+            border-radius: 10px;
+            background: #1d4ed8;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .staff-list {
+            display: grid;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .staff-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #1e293b;
+            background: #0f172a;
+        }
+
+        .staff-row button {
+            border: 0;
+            border-radius: 8px;
+            padding: 6px 10px;
+            background: #7f1d1d;
+            color: #fff;
+            cursor: pointer;
+        }
+
+    
+        .profile-orders-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 11px 14px;
+            border: 1px solid #2563eb;
+            border-radius: 10px;
+            background: #1d4ed8;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -903,6 +1118,22 @@
             <a onclick="switchSection('store')"
                id="link-store">
                 المتجر
+            </a>
+
+            <a onclick="openProfileFromMenu()"
+               id="link-profile">
+                الملف الشخصي
+            </a>
+
+            <a onclick="switchSection('store-admin'); renderAdminOrders();"
+               id="link-store-admin"
+               style="display:none;">
+                الطلبات
+            </a>
+
+            <a onclick="switchSection('supervisors'); renderStaffList();"
+               id="link-supervisors">
+                مشرفين الموقع
             </a>
 
         </div>
@@ -1560,6 +1791,60 @@
     </div>
 
 
+
+
+    <!-- ================= SITE SUPERVISORS ================= -->
+
+    <div id="supervisors" class="section">
+        <div class="store-admin-wrap">
+            <h1 class="store-admin-title">مشرفين الموقع</h1>
+            <p class="store-admin-subtitle">
+                من هنا تضيف إيميلات المشرفين الذين يحق لهم مشاهدة جميع طلبات المتجر.
+            </p>
+
+            <div class="staff-access-panel">
+                <div class="staff-access-head">
+                    <div>
+                        <h3>قائمة المشرفين</h3>
+                        <small>اضغط + لإضافة بريد مشرف جديد.</small>
+                    </div>
+                    <button type="button" class="staff-add-btn" onclick="toggleStaffAddBox()">+</button>
+                </div>
+
+                <div id="staffAddBox" class="staff-add-box" style="display:none;">
+                    <input id="staffEmailInput" type="email" placeholder="example@email.com">
+                    <button type="button" onclick="addStoreStaff()">إضافة</button>
+                </div>
+
+                <div id="staffList" class="staff-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MY ORDERS ================= -->
+
+    <div id="orders" class="section">
+        <div class="orders-wrap">
+            <h1 class="orders-title">طلباتي</h1>
+            <p class="orders-subtitle">تابع حالة طلبك وتحديثاته من هنا.</p>
+            <div id="myOrdersContainer" class="orders-grid"></div>
+        </div>
+    </div>
+
+
+    <!-- ================= STORE ADMIN ================= -->
+
+    <div id="store-admin" class="section">
+        <div class="store-admin-wrap">
+            <h1 class="store-admin-title">الطلبات</h1>
+            <p class="store-admin-subtitle">
+                جميع طلبات المتجر تظهر هنا للمشرفين المضافين في قائمة «مشرفين الموقع»، مع تاريخ ووقت كل طلب.
+            </p>
+
+            <div id="adminOrdersContainer" class="orders-grid"></div>
+        </div>
+    </div>
+
     <!-- ================= RESERVATION MODAL ================= -->
 
     <div
@@ -1581,11 +1866,11 @@
             </div>
 
             <div class="modal-title">
-                تأكيد حجز المنتج
+                تأكيد شراء المنتج
             </div>
 
             <div class="modal-subtitle">
-                لقد قمت باختيار حجز المنتج التالي:
+                لقد قمت باختيار شراء المنتج التالي:
             </div>
 
             <div class="modal-details-card">
@@ -1631,7 +1916,7 @@
                 <button
                     class="modal-btn btn-primary"
                     onclick="confirmReservation()">
-                    تأكيد الحجز وإرسال للديسكورد
+                    متابعة الشراء
                 </button>
 
             </div>
@@ -1691,6 +1976,12 @@
 
             </div>
 
+            
+            <button type="button" class="profile-orders-btn"
+                    onclick="closeProfile(); switchSection('orders'); renderMyOrders();">
+                طلباتي كمشتري
+            </button>
+
             <button
                 class="logout-btn"
                 onclick="logoutDiscord()">
@@ -1705,39 +1996,46 @@
     <!-- ================= JAVASCRIPT ================= -->
 
     <script>
+        let currentUserEmail = "";
 
-        /* ================= DISCORD OAUTH2 ================= */
+        /* ================= SUPABASE + DISCORD AUTH ================= */
 
-        const DISCORD_CLIENT_ID = "1544640987228409866";
+        // ضع بيانات مشروع Supabase هنا فقط.
+        // الـ ANON KEY مسموح يكون في الواجهة، ولا تضع Service Role Key هنا أبداً.
+        const SUPABASE_URL = "PUT_SUPABASE_URL_HERE";
+        const SUPABASE_ANON_KEY = "PUT_SUPABASE_ANON_KEY_HERE";
         const REDIRECT_URI = "https://alarmierahmed-ctrl.github.io/Dark-Matter-Rp/";
 
-        function loginWithDiscord() {
-            const discordLoginUrl =
-                "https://discord.com/oauth2/authorize" +
-                "?client_id=" + encodeURIComponent(DISCORD_CLIENT_ID) +
-                "&response_type=token" +
-                "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) +
-                "&scope=identify";
+        const sb = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
 
-            window.location.href = discordLoginUrl;
+        async function loginWithDiscord() {
+            const { error } = await sb.auth.signInWithOAuth({
+                provider: 'discord',
+                options: {
+                    redirectTo: REDIRECT_URI,
+                    scopes: 'identify email'
+                }
+            });
+
+            if (error) {
+                console.error(error);
+                alert('تعذر تسجيل الدخول: ' + error.message);
+            }
         }
 
 
         /* ================= USER ================= */
 
-        let currentUserName =
-            localStorage.getItem('discord_username') || "";
+        let currentUserName = "";
 
-        let currentUserAvatar =
-            localStorage.getItem('discord_avatar') || "";
+        let currentUserAvatar = "";
 
-        let currentUserId =
-            localStorage.getItem('discord_id') || "";
+        let currentUserId = "";
 
-        let currentUserRoles =
-            JSON.parse(
-                localStorage.getItem('discord_roles') || "[]"
-            );
+        let currentUserRoles = [];
 
         let selectedProduct = {
             name: "",
@@ -2139,7 +2437,7 @@
             if (!currentUserName) {
 
                 alert(
-                    'يلزم تسجيل الدخول بالديسكورد أولاً قبل حجز السيارة.'
+                    'يلزم تسجيل الدخول بالديسكورد أولاً قبل شراء المنتج.'
                 );
 
                 return;
@@ -2179,77 +2477,24 @@
         }
 
 
-        function confirmReservation() {
-
-            if (!WEBHOOK_URL) {
-                alert('الحجز جاهز، لكن يلزم ربط Backend آمن لإرسال الطلب إلى Discord.');
-                closeModal();
-                return;
-            }
+        async function confirmReservation() {
 
             if (!currentUserName) {
-
                 closeModal();
-
-                alert(
-                    'يلزم تسجيل الدخول بالديسكورد أولاً.'
-                );
-
+                alert('يلزم تسجيل الدخول بالديسكورد أولاً.');
                 return;
-
             }
 
+            const order = await createPendingOrder(selectedProduct);
+            if (!order) return;
 
-            const payload = {
+            closeModal();
+            await renderMyOrders();
+            switchSection('orders');
 
-                content:
-                    `🚗 **حجز منتج جديد من المتجر!**\n` +
-                    `👤 **المحجِز:** ${currentUserName}\n` +
-                    `🆔 **ID:** ${currentUserId || "غير معروف"}\n` +
-                    `🚘 **المنتج:** ${selectedProduct.name}\n` +
-                    `💰 **السعر:** ${selectedProduct.price}`
-
-            };
-
-
-            fetch(WEBHOOK_URL, {
-
-                method: 'POST',
-
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-
-                body: JSON.stringify(payload)
-
-            })
-
-            .then(response => {
-
-                if (!response.ok) {
-                    throw new Error(
-                        'Webhook Error'
-                    );
-                }
-
-                alert(
-                    'تم إرسال طلب الحجز بنجاح إلى الديسكورد! يرجى فتح تكت متجر للاستلام.'
-                );
-
-                closeModal();
-
-            })
-
-            .catch(err => {
-
-                console.error(err);
-
-                alert(
-                    'حدث خطأ أثناء إرسال الحجز.'
-                );
-
-            });
-
+            alert(
+                'تم إنشاء الطلب. بعد ربط ميسّر سيتم تحديث حالة الدفع تلقائياً بعد نجاح العملية.'
+            );
         }
 
 
@@ -2354,44 +2599,21 @@
 
         /* ================= LOGOUT ================= */
 
-        function logoutDiscord() {
-
-            localStorage.removeItem(
-                'discord_username'
-            );
-
-            localStorage.removeItem(
-                'discord_avatar'
-            );
-
-            localStorage.removeItem(
-                'discord_id'
-            );
-
-            localStorage.removeItem(
-                'discord_roles'
-            );
-
+        async function logoutDiscord() {
+            await sb.auth.signOut();
 
             currentUserName = "";
             currentUserAvatar = "";
             currentUserId = "";
+            currentUserEmail = "";
             currentUserRoles = [];
-
+            isSiteOwner = false;
+            isSiteSupervisor = false;
 
             closeProfile();
-
-
             updateAuthUI();
-
-
+            updateStoreAdminVisibility();
             switchSection('home');
-
-
-            alert(
-                'تم تسجيل خروجك من الحساب بنجاح.'
-            );
-
         }
 
 
@@ -2462,108 +2684,440 @@
         }
 
 
-        /* ================= DISCORD LOGIN ================= */
-
-        window.addEventListener(
-            'DOMContentLoaded',
-            () => {
-
-                const fragment =
-                    window.location.hash.substring(1);
 
 
-                const params =
-                    new URLSearchParams(fragment);
+        /* ================= ACCESS / SUPERVISORS / ORDERS ================= */
 
+        let isSiteOwner = false;
+        let isSiteSupervisor = false;
 
-                const accessToken =
-                    params.get('access_token');
+        function moneyToNumber(value) {
+            const n = parseFloat(String(value || '').replace(/[^\d.]/g, ''));
+            return Number.isFinite(n) ? n : 0;
+        }
 
-
-                if (accessToken) {
-
-                    fetch(
-                        'https://discord.com/api/users/@me',
-                        {
-                            headers: {
-                                authorization:
-                                    `Bearer ${accessToken}`
-                            }
-                        }
-                    )
-
-                    .then(res => res.json())
-
-                    .then(data => {
-
-                        currentUserName =
-                            data.global_name ||
-                            data.username;
-
-
-                        currentUserId =
-                            data.id;
-
-
-                        currentUserAvatar =
-                            data.avatar
-                                ? `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png`
-                                : 'https://cdn.discordapp.com/embed/avatars/0.png';
-
-
-                        currentUserRoles = [];
-
-
-                        localStorage.setItem(
-                            'discord_username',
-                            currentUserName
-                        );
-
-
-                        localStorage.setItem(
-                            'discord_avatar',
-                            currentUserAvatar
-                        );
-
-
-                        localStorage.setItem(
-                            'discord_id',
-                            currentUserId
-                        );
-
-
-                        localStorage.setItem(
-                            'discord_roles',
-                            JSON.stringify(
-                                currentUserRoles
-                            )
-                        );
-
-
-                        updateAuthUI();
-
-
-                        window.history.replaceState(
-                            {},
-                            document.title,
-                            window.location.pathname
-                        );
-
-                    })
-
-                    .catch(console.error);
-
-                } else {
-
-                    updateAuthUI();
-
-                }
-
+        function formatDate(value) {
+            if (!value) return '-';
+            try {
+                return new Date(value).toLocaleString('ar-SA');
+            } catch (e) {
+                return value;
             }
-        );
+        }
+
+        function toggleStaffAddBox() {
+            const box = document.getElementById('staffAddBox');
+            if (!box) return;
+            box.style.display = box.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        async function refreshAccess() {
+            isSiteOwner = false;
+            isSiteSupervisor = false;
+
+            if (!currentUserEmail) {
+                updateStoreAdminVisibility();
+                return;
+            }
+
+            const email = currentUserEmail.toLowerCase();
+
+            const { data: ownerRow } = await sb
+                .from('site_admins')
+                .select('email')
+                .eq('email', email)
+                .maybeSingle();
+
+            const { data: supervisorRow } = await sb
+                .from('supervisors')
+                .select('email')
+                .eq('email', email)
+                .maybeSingle();
+
+            isSiteOwner = !!ownerRow;
+            isSiteSupervisor = !!supervisorRow;
+
+            updateStoreAdminVisibility();
+        }
+
+        function hasOrdersAccess() {
+            return isSiteOwner || isSiteSupervisor;
+        }
+
+        function updateStoreAdminVisibility() {
+            const ordersLink = document.getElementById('link-store-admin');
+            const supervisorsLink = document.getElementById('link-supervisors');
+
+            if (ordersLink) {
+                ordersLink.style.display = hasOrdersAccess() ? '' : 'none';
+            }
+
+            if (supervisorsLink) {
+                supervisorsLink.style.display = '';
+            }
+        }
+
+        async function addStoreStaff() {
+            if (!isSiteOwner) {
+                alert('هذه الصلاحية لصاحب الموقع فقط.');
+                return;
+            }
+
+            const input = document.getElementById('staffEmailInput');
+            if (!input) return;
+
+            const email = input.value.trim().toLowerCase();
+
+            if (!email || !email.includes('@')) {
+                alert('اكتب بريد صحيح.');
+                return;
+            }
+
+            const { error } = await sb
+                .from('supervisors')
+                .insert({
+                    email: email,
+                    added_by: currentUserId
+                });
+
+            if (error) {
+                if (error.code === '23505') {
+                    alert('هذا البريد مضاف من قبل.');
+                } else {
+                    console.error(error);
+                    alert('تعذر إضافة المشرف: ' + error.message);
+                }
+                return;
+            }
+
+            input.value = '';
+            await renderStaffList();
+        }
+
+        async function removeStoreStaff(email) {
+            if (!isSiteOwner) return;
+
+            if (!confirm('حذف هذا المشرف؟')) return;
+
+            const { error } = await sb
+                .from('supervisors')
+                .delete()
+                .eq('email', email.toLowerCase());
+
+            if (error) {
+                console.error(error);
+                alert('تعذر حذف المشرف.');
+                return;
+            }
+
+            await renderStaffList();
+        }
+
+        async function renderStaffList() {
+            const box = document.getElementById('staffList');
+            if (!box) return;
+
+            if (!isSiteOwner) {
+                box.innerHTML = '<div class="empty-state">هذه الصفحة لصاحب الموقع فقط.</div>';
+                return;
+            }
+
+            box.innerHTML = '<div class="empty-state">جاري تحميل المشرفين...</div>';
+
+            const { data, error } = await sb
+                .from('supervisors')
+                .select('email, created_at')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error(error);
+                box.innerHTML = '<div class="empty-state">تعذر تحميل المشرفين.</div>';
+                return;
+            }
+
+            if (!data || !data.length) {
+                box.innerHTML = '<div class="empty-state">ما أضفت مشرفين للحين.</div>';
+                return;
+            }
+
+            box.innerHTML = data.map(row => `
+                <div class="staff-row">
+                    <div>
+                        <strong>${row.email}</strong>
+                        <div style="font-size:12px;color:#94a3b8;margin-top:4px;">
+                            أضيف: ${formatDate(row.created_at)}
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeStoreStaff('${row.email}')">حذف</button>
+                </div>
+            `).join('');
+        }
+
+        async function createPendingOrder(product) {
+            if (!currentUserId) {
+                alert('سجل دخول بالديسكورد أولاً.');
+                return null;
+            }
+
+            const payload = {
+                buyer_id: currentUserId,
+                buyer_email: currentUserEmail || '',
+                buyer_name: currentUserName || '',
+                product_name: product.name,
+                price: moneyToNumber(product.price),
+                status: 'بانتظار الدفع',
+                payment_status: 'pending'
+            };
+
+            const { data, error } = await sb
+                .from('orders')
+                .insert(payload)
+                .select()
+                .single();
+
+            if (error) {
+                console.error(error);
+                alert('تعذر إنشاء الطلب: ' + error.message);
+                return null;
+            }
+
+            return data;
+        }
+
+        function orderSteps(status) {
+            const steps = [
+                'تم الدفع',
+                'تم استلام الطلب',
+                'جاري تجهيز الطلب',
+                'جاهز للتسليم',
+                'تم التسليم'
+            ];
+
+            const statusIndex = {
+                'تم الدفع': 0,
+                'تم استلام الطلب': 1,
+                'جاري تجهيز الطلب': 2,
+                'جاهز للتسليم': 3,
+                'تم التسليم': 4
+            }[status];
+
+            return steps.map((step, index) =>
+                `<div class="order-step ${statusIndex !== undefined && index <= statusIndex ? 'done' : ''}">
+                    ${statusIndex !== undefined && index <= statusIndex ? '✅' : '⬜'} ${step}
+                </div>`
+            ).join('');
+        }
+
+        async function renderMyOrders() {
+            const box = document.getElementById('myOrdersContainer');
+            if (!box) return;
+
+            if (!currentUserId) {
+                box.innerHTML = '<div class="empty-state">سجل دخول بالديسكورد لعرض طلباتك.</div>';
+                return;
+            }
+
+            box.innerHTML = '<div class="empty-state">جاري تحميل طلباتك...</div>';
+
+            const { data, error } = await sb
+                .from('orders')
+                .select('*')
+                .eq('buyer_id', currentUserId)
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error(error);
+                box.innerHTML = '<div class="empty-state">تعذر تحميل الطلبات.</div>';
+                return;
+            }
+
+            if (!data || !data.length) {
+                box.innerHTML = '<div class="empty-state">ما عندك طلبات حالياً.</div>';
+                return;
+            }
+
+            box.innerHTML = data.map(order => `
+                <div class="order-card">
+                    <h3>${order.product_name}</h3>
+                    <div class="order-meta">
+                        <div><strong>رقم الطلب:</strong> ${order.order_number || order.id}</div>
+                        <div><strong>السعر:</strong> ${Number(order.price).toFixed(2)} ر.س</div>
+                        <div><strong>التاريخ:</strong> ${formatDate(order.created_at)}</div>
+                        <div><strong>الحالة:</strong> ${order.status}</div>
+                        ${order.received_by_email
+                            ? `<div><strong>استلمه:</strong> إدارة Dark Matter</div>`
+                            : ''}
+                    </div>
+                    <span class="order-status">${order.status}</span>
+                    <div class="order-progress">
+                        ${orderSteps(order.status)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function renderAdminOrders() {
+            const box = document.getElementById('adminOrdersContainer');
+            if (!box) return;
+
+            if (!hasOrdersAccess()) {
+                box.innerHTML = '<div class="empty-state">ليس لديك صلاحية لعرض الطلبات.</div>';
+                return;
+            }
+
+            box.innerHTML = '<div class="empty-state">جاري تحميل الطلبات...</div>';
+
+            const { data, error } = await sb
+                .from('orders')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error(error);
+                box.innerHTML = '<div class="empty-state">تعذر تحميل الطلبات.</div>';
+                return;
+            }
+
+            if (!data || !data.length) {
+                box.innerHTML = '<div class="empty-state">لا توجد طلبات حالياً.</div>';
+                return;
+            }
+
+            box.innerHTML = data.map(order => `
+                <div class="order-card">
+                    <h3>${order.product_name}</h3>
+                    <div class="order-meta">
+                        <div><strong>رقم الطلب:</strong> ${order.order_number || order.id}</div>
+                        <div><strong>المشتري:</strong> ${order.buyer_name || 'غير معروف'}</div>
+                        <div><strong>البريد:</strong> ${order.buyer_email || '-'}</div>
+                        <div><strong>السعر:</strong> ${Number(order.price).toFixed(2)} ر.س</div>
+                        <div><strong>تاريخ الطلب:</strong> ${formatDate(order.created_at)}</div>
+                        <div><strong>الحالة:</strong> ${order.status}</div>
+                        ${order.received_by_email
+                            ? `<div><strong>مستلم الطلب:</strong> ${order.received_by_email}</div>`
+                            : ''}
+                    </div>
+
+                    <div class="admin-order-actions">
+                        <button type="button" onclick="receiveOrder('${order.id}')">
+                            استلام الطلب
+                        </button>
+
+                        <select onchange="changeOrderStatus('${order.id}', this.value)">
+                            <option value="">تغيير الحالة...</option>
+                            <option value="تم الدفع">تم الدفع</option>
+                            <option value="جاري تجهيز الطلب">جاري تجهيز الطلب</option>
+                            <option value="جاهز للتسليم">جاهز للتسليم</option>
+                            <option value="تم التسليم">تم التسليم</option>
+                            <option value="ملغي">ملغي</option>
+                        </select>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function receiveOrder(orderId) {
+            if (!hasOrdersAccess()) return;
+
+            const { error } = await sb
+                .from('orders')
+                .update({
+                    status: 'تم استلام الطلب',
+                    received_by: currentUserId,
+                    received_by_email: currentUserEmail
+                })
+                .eq('id', orderId);
+
+            if (error) {
+                console.error(error);
+                alert('تعذر استلام الطلب.');
+                return;
+            }
+
+            await renderAdminOrders();
+            await renderMyOrders();
+        }
+
+        async function changeOrderStatus(orderId, status) {
+            if (!hasOrdersAccess() || !status) return;
+
+            const { error } = await sb
+                .from('orders')
+                .update({ status: status })
+                .eq('id', orderId);
+
+            if (error) {
+                console.error(error);
+                alert('تعذر تحديث حالة الطلب.');
+                return;
+            }
+
+            await renderAdminOrders();
+            await renderMyOrders();
+        }
 
 
+        /* ================= PROFILE MENU ================= */
 
+        function openProfileFromMenu() {
+            if (!currentUserName) {
+                alert('سجل دخول بالديسكورد أولاً لفتح الملف الشخصي.');
+                loginWithDiscord();
+                return;
+            }
+
+            openProfile();
+        }
+
+
+        /* ================= SUPABASE SESSION ================= */
+
+        async function applySupabaseUser(user) {
+            if (!user) {
+                currentUserName = "";
+                currentUserAvatar = "";
+                currentUserId = "";
+                currentUserEmail = "";
+                currentUserRoles = [];
+                isSiteOwner = false;
+                isSiteSupervisor = false;
+
+                updateAuthUI();
+                updateStoreAdminVisibility();
+                return;
+            }
+
+            const meta = user.user_metadata || {};
+
+            currentUserId = user.id;
+            currentUserEmail = (user.email || meta.email || '').toLowerCase();
+            currentUserName =
+                meta.full_name ||
+                meta.name ||
+                meta.user_name ||
+                meta.preferred_username ||
+                currentUserEmail ||
+                'Discord User';
+
+            currentUserAvatar =
+                meta.avatar_url ||
+                meta.picture ||
+                'https://cdn.discordapp.com/embed/avatars/0.png';
+
+            currentUserRoles = [];
+
+            updateAuthUI();
+            await refreshAccess();
+        }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            const { data } = await sb.auth.getSession();
+            await applySupabaseUser(data.session ? data.session.user : null);
+
+            sb.auth.onAuthStateChange(async (_event, session) => {
+                await applySupabaseUser(session ? session.user : null);
+            });
+        });
 
         /* ================= HOME SLIDER ================= */
 
@@ -2657,6 +3211,8 @@
 
                 }
             );
+
+    
 
     </script>
 
