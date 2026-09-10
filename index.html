@@ -2021,44 +2021,100 @@
     <!-- ================= JAVASCRIPT ================= -->
 
     <script>
-        let currentUserEmail = "";
+        let currentUserEmail = localStorage.getItem("discord_email") || "";
 
-        /* ================= SUPABASE + DISCORD AUTH ================= */
+        /* ================= DISCORD LOGIN + OPTIONAL SUPABASE ================= */
 
-        // ضع بيانات مشروع Supabase هنا فقط.
-        // الـ ANON KEY مسموح يكون في الواجهة، ولا تضع Service Role Key هنا أبداً.
-        const SUPABASE_URL = "PUT_SUPABASE_URL_HERE";
-        const SUPABASE_ANON_KEY = "PUT_SUPABASE_ANON_KEY_HERE";
+        const DISCORD_CLIENT_ID = "1544640987228409866";
         const REDIRECT_URI = "https://alarmierahmed-ctrl.github.io/Dark-Matter-Rp/";
 
-        const sb = window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
+        // اتركها كما هي إلى أن تربط Supabase فعلياً.
+        const SUPABASE_URL = "PUT_SUPABASE_URL_HERE";
+        const SUPABASE_ANON_KEY = "PUT_SUPABASE_ANON_KEY_HERE";
 
-        async function loginWithDiscord() {
-            const { error } = await sb.auth.signInWithOAuth({
-                provider: 'discord',
-                options: {
-                    redirectTo: REDIRECT_URI,
-                    scopes: 'identify email'
+        const SUPABASE_READY =
+            SUPABASE_URL.startsWith("https://") &&
+            !SUPABASE_URL.includes("PUT_SUPABASE") &&
+            SUPABASE_ANON_KEY &&
+            !SUPABASE_ANON_KEY.includes("PUT_SUPABASE");
+
+        const sb = SUPABASE_READY
+            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+            : null;
+
+        function loginWithDiscord() {
+            const discordLoginUrl =
+                "https://discord.com/oauth2/authorize" +
+                "?client_id=" + encodeURIComponent(DISCORD_CLIENT_ID) +
+                "&response_type=token" +
+                "&redirect_uri=" + encodeURIComponent(REDIRECT_URI) +
+                "&scope=identify%20email";
+
+            window.location.href = discordLoginUrl;
+        }
+
+        async function handleDiscordCallback() {
+            const hash = new URLSearchParams(window.location.hash.slice(1));
+            const token = hash.get("access_token");
+
+            if (!token) return;
+
+            try {
+                const response = await fetch("https://discord.com/api/users/@me", {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                });
+
+                if (!response.ok) throw new Error("Discord user request failed");
+
+                const user = await response.json();
+
+                currentUserId = user.id || "";
+                currentUserName =
+                    user.global_name ||
+                    user.username ||
+                    "Discord User";
+
+                currentUserEmail = (user.email || "").toLowerCase();
+
+                currentUserAvatar = user.avatar
+                    ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`
+                    : "https://cdn.discordapp.com/embed/avatars/0.png";
+
+                localStorage.setItem("discord_id", currentUserId);
+                localStorage.setItem("discord_username", currentUserName);
+                localStorage.setItem("discord_email", currentUserEmail);
+                localStorage.setItem("discord_avatar", currentUserAvatar);
+
+                history.replaceState(
+                    null,
+                    document.title,
+                    window.location.pathname + window.location.search
+                );
+
+                updateAuthUI();
+
+                if (sb) {
+                    await refreshAccess();
+                } else {
+                    updateStoreAdminVisibility();
                 }
-            });
 
-            if (error) {
+            } catch (error) {
                 console.error(error);
-                alert('تعذر تسجيل الدخول: ' + error.message);
+                alert("تعذر تسجيل الدخول بالديسكورد.");
             }
         }
 
 
         /* ================= USER ================= */
 
-        let currentUserName = "";
+        let currentUserName = localStorage.getItem("discord_username") || "";
 
-        let currentUserAvatar = "";
+        let currentUserAvatar = localStorage.getItem("discord_avatar") || "";
 
-        let currentUserId = "";
+        let currentUserId = localStorage.getItem("discord_id") || "";
 
         let currentUserRoles = [];
 
@@ -2625,7 +2681,14 @@
         /* ================= LOGOUT ================= */
 
         async function logoutDiscord() {
-            await sb.auth.signOut();
+            if (sb) {
+                await sb.auth.signOut();
+            }
+
+            localStorage.removeItem("discord_id");
+            localStorage.removeItem("discord_username");
+            localStorage.removeItem("discord_email");
+            localStorage.removeItem("discord_avatar");
 
             currentUserName = "";
             currentUserAvatar = "";
@@ -2737,6 +2800,12 @@
         }
 
         async function refreshAccess() {
+            if (!sb) {
+                isSiteOwner = false;
+                isSiteSupervisor = false;
+                updateStoreAdminVisibility();
+                return;
+            }
             isSiteOwner = false;
             isSiteSupervisor = false;
 
@@ -2783,6 +2852,10 @@
         }
 
         async function addStoreStaff() {
+            if (!sb) {
+                alert('اربط Supabase أولاً حتى تحفظ المشرفين بين الأجهزة.');
+                return;
+            }
             if (!isSiteOwner) {
                 alert('هذه الصلاحية لصاحب الموقع فقط.');
                 return;
@@ -2820,6 +2893,10 @@
         }
 
         async function removeStoreStaff(email) {
+            if (!sb) {
+                alert('اربط Supabase أولاً.');
+                return;
+            }
             if (!isSiteOwner) return;
 
             if (!confirm('حذف هذا المشرف؟')) return;
@@ -2839,6 +2916,11 @@
         }
 
         async function renderStaffList() {
+            if (!sb) {
+                const box = document.getElementById('staffList');
+                if (box) box.innerHTML = '<div class="empty-state">اربط Supabase أولاً لإضافة مشرفين حقيقيين.</div>';
+                return;
+            }
             const box = document.getElementById('staffList');
             if (!box) return;
 
@@ -2879,6 +2961,10 @@
         }
 
         async function createPendingOrder(product) {
+            if (!sb) {
+                alert('نظام الطلبات يحتاج ربط Supabase أولاً. المتجر وتسجيل الدخول شغالين الآن.');
+                return null;
+            }
             if (!currentUserId) {
                 alert('سجل دخول بالديسكورد أولاً.');
                 return null;
@@ -2934,6 +3020,11 @@
         }
 
         async function renderMyOrders() {
+            if (!sb) {
+                const box = document.getElementById('myOrdersContainer');
+                if (box) box.innerHTML = '<div class="empty-state">اربط Supabase أولاً لعرض الطلبات.</div>';
+                return;
+            }
             const box = document.getElementById('myOrdersContainer');
             if (!box) return;
 
@@ -2982,6 +3073,11 @@
         }
 
         async function renderAdminOrders() {
+            if (!sb) {
+                const box = document.getElementById('adminOrdersContainer');
+                if (box) box.innerHTML = '<div class="empty-state">اربط Supabase أولاً لعرض الطلبات.</div>';
+                return;
+            }
             const box = document.getElementById('adminOrdersContainer');
             if (!box) return;
 
@@ -3042,6 +3138,7 @@
         }
 
         async function receiveOrder(orderId) {
+            if (!sb) return;
             if (!hasOrdersAccess()) return;
 
             const { error } = await sb
@@ -3064,6 +3161,7 @@
         }
 
         async function changeOrderStatus(orderId, status) {
+            if (!sb) return;
             if (!hasOrdersAccess() || !status) return;
 
             const { error } = await sb
@@ -3095,54 +3193,18 @@
         }
 
 
-        /* ================= SUPABASE SESSION ================= */
-
-        async function applySupabaseUser(user) {
-            if (!user) {
-                currentUserName = "";
-                currentUserAvatar = "";
-                currentUserId = "";
-                currentUserEmail = "";
-                currentUserRoles = [];
-                isSiteOwner = false;
-                isSiteSupervisor = false;
-
-                updateAuthUI();
-                updateStoreAdminVisibility();
-                return;
-            }
-
-            const meta = user.user_metadata || {};
-
-            currentUserId = user.id;
-            currentUserEmail = (user.email || meta.email || '').toLowerCase();
-            currentUserName =
-                meta.full_name ||
-                meta.name ||
-                meta.user_name ||
-                meta.preferred_username ||
-                currentUserEmail ||
-                'Discord User';
-
-            currentUserAvatar =
-                meta.avatar_url ||
-                meta.picture ||
-                'https://cdn.discordapp.com/embed/avatars/0.png';
-
-            currentUserRoles = [];
-
-            updateAuthUI();
-            await refreshAccess();
-        }
+        /* ================= STARTUP ================= */
 
         window.addEventListener('DOMContentLoaded', async () => {
-            const { data } = await sb.auth.getSession();
-            await applySupabaseUser(data.session ? data.session.user : null);
+            updateAuthUI();
+            updateStoreAdminVisibility();
+            await handleDiscordCallback();
 
-            sb.auth.onAuthStateChange(async (_event, session) => {
-                await applySupabaseUser(session ? session.user : null);
-            });
+            if (sb) {
+                await refreshAccess();
+            }
         });
+
 
         /* ================= HOME SLIDER ================= */
 
