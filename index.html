@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark Matter - المتجر والخدمات</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.15.0/moyasar.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.moyasar.com/mpf/1.15.0/moyasar.js"></script>
+</head>
+<body>
+<header class="navbar">
+  <div class="brand"><img src="assets/images/logo.png" alt="Dark Matter" onerror="this.style.display='none'"><span>Dark Matter</span></div>
+  <nav class="nav-links">
+    <button onclick="showSection('home')">الرئيسية</button>
+    <button onclick="showSection('team')">الإدارة</button>
+    <button onclick="showSection('rules')">القوانين</button>
+    <button onclick="showSection('store')">المتجر</button>
+    <button id="ordersNav" class="hidden" onclick="showSection('orders');loadOrders()">الطلبات</button>
+    <button id="supervisorsNav" class="hidden" onclick="showSection('supervisors');loadSupervisors()">مشرفين الموقع</button>
+  </nav>
+  <div class="account">
+    <button id="loginBtn" class="btn" onclick="loginDiscord()">تسجيل دخول بالديسكورد</button>
+    <div id="accountBox" class="account hidden" onclick="openProfile()" style="cursor:pointer"><img id="navAvatar"><span id="navName" class="account-name"></span></div>
+  </div>
+</header>
+
+<section id="home" class="section active"><div class="hero"><h1>Dark Matter</h1><p>حياكم الله في موقع Dark Matter</p><div class="home-slider"><div class="home-slide active"><img src="assets/images/home/home-1.png" alt="Dark Matter"></div>
+<div class="home-slide"><img src="assets/images/home/home-2.png" alt="Dark Matter"></div>
+<div class="home-slide"><img src="assets/images/home/home-3.png" alt="Dark Matter"></div>
+<div class="home-slide"><img src="assets/images/home/home-4.png" alt="Dark Matter"></div></div></div></section>
+
+<section id="team" class="section"><div class="container"><h2 class="section-title">الإدارة</h2><p class="section-subtitle">Dark Matter Management</p><div class="grid"><div class="card team-card"><img src="assets/images/team/team-1.png" alt="Owner"><div class="team-role">Owner</div><div class="team-name">𝓜𝓞𝓗𝓐 𖣂</div></div>
+<div class="card team-card"><img src="assets/images/team/team-2.png" alt="Co Owner"><div class="team-role">Co Owner</div><div class="team-name">DM I ♔ MHM ♕</div></div>
+<div class="card team-card"><img src="assets/images/team/team-3.png" alt="Founder"><div class="team-role">Founder</div><div class="team-name">𝗗𝗺 I BFB</div></div>
+<div class="card team-card"><img src="assets/images/team/team-4.png" alt="Developer"><div class="team-role">Developer</div><div class="team-name">𝗗𝗺 I Sabr</div></div>
+<div class="card team-card"><img src="assets/images/team/team-5.png" alt="Developer"><div class="team-role">Developer</div><div class="team-name">𝗗𝗺 I ABDULLAH</div></div>
+<div class="card team-card"><img src="assets/images/team/team-6.png" alt="High Management"><div class="team-role">High Management</div><div class="team-name">𝗗𝗺 I ♛ABU NJMI ♛</div></div></div></div></section>
+
+<section id="rules" class="section"><div class="container"><h2 class="section-title">القوانين</h2><p class="section-subtitle">يرجى الالتزام بالقوانين</p><div class="rules">
+<p>1. يمنع الإساءة والتخريب والاحتيال.</p><p>2. تأكد من بيانات الطلب قبل الدفع.</p><p>3. لا يعتبر الطلب مدفوعًا إلا بعد التحقق من ميسّر.</p><p>4. احتفظ برقم الطلب لأي مراجعة مع الإدارة.</p>
+</div></div></section>
+
+<section id="store" class="section"><div class="container"><h2 class="section-title">المتجر</h2><p class="section-subtitle">جميع السيارات بسعر 22.99 ر.س</p><div class="grid"><div class="card car-card"><img src="assets/images/cars/car-01.png" alt="سيارة خاصة 1"><div class="car-info"><div class="car-title">سيارة خاصة 1</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(1)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-02.png" alt="سيارة خاصة 2"><div class="car-info"><div class="car-title">سيارة خاصة 2</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(2)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-03.png" alt="سيارة خاصة 3"><div class="car-info"><div class="car-title">سيارة خاصة 3</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(3)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-04.png" alt="سيارة خاصة 4"><div class="car-info"><div class="car-title">سيارة خاصة 4</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(4)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-05.png" alt="سيارة خاصة 5"><div class="car-info"><div class="car-title">سيارة خاصة 5</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(5)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-06.png" alt="سيارة خاصة 6"><div class="car-info"><div class="car-title">سيارة خاصة 6</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(6)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-07.png" alt="سيارة خاصة 7"><div class="car-info"><div class="car-title">سيارة خاصة 7</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(7)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-08.png" alt="سيارة خاصة 8"><div class="car-info"><div class="car-title">سيارة خاصة 8</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(8)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-09.png" alt="سيارة خاصة 9"><div class="car-info"><div class="car-title">سيارة خاصة 9</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(9)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-10.png" alt="سيارة خاصة 10"><div class="car-info"><div class="car-title">سيارة خاصة 10</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(10)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-11.png" alt="سيارة خاصة 11"><div class="car-info"><div class="car-title">سيارة خاصة 11</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(11)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-12.png" alt="سيارة خاصة 12"><div class="car-info"><div class="car-title">سيارة خاصة 12</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(12)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-13.png" alt="سيارة خاصة 13"><div class="car-info"><div class="car-title">سيارة خاصة 13</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(13)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-14.png" alt="سيارة خاصة 14"><div class="car-info"><div class="car-title">سيارة خاصة 14</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(14)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-15.png" alt="سيارة خاصة 15"><div class="car-info"><div class="car-title">سيارة خاصة 15</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(15)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-16.png" alt="سيارة خاصة 16"><div class="car-info"><div class="car-title">سيارة خاصة 16</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(16)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-17.png" alt="سيارة خاصة 17"><div class="car-info"><div class="car-title">سيارة خاصة 17</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(17)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-18.png" alt="سيارة خاصة 18"><div class="car-info"><div class="car-title">سيارة خاصة 18</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(18)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-19.png" alt="سيارة خاصة 19"><div class="car-info"><div class="car-title">سيارة خاصة 19</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(19)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-20.png" alt="سيارة خاصة 20"><div class="car-info"><div class="car-title">سيارة خاصة 20</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(20)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-21.png" alt="سيارة خاصة 21"><div class="car-info"><div class="car-title">سيارة خاصة 21</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(21)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-22.png" alt="سيارة خاصة 22"><div class="car-info"><div class="car-title">سيارة خاصة 22</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(22)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-23.png" alt="سيارة خاصة 23"><div class="car-info"><div class="car-title">سيارة خاصة 23</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(23)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-24.png" alt="سيارة خاصة 24"><div class="car-info"><div class="car-title">سيارة خاصة 24</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(24)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-25.png" alt="سيارة خاصة 25"><div class="car-info"><div class="car-title">سيارة خاصة 25</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(25)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-26.png" alt="سيارة خاصة 26"><div class="car-info"><div class="car-title">سيارة خاصة 26</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(26)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-27.png" alt="سيارة خاصة 27"><div class="car-info"><div class="car-title">سيارة خاصة 27</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(27)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-28.png" alt="سيارة خاصة 28"><div class="car-info"><div class="car-title">سيارة خاصة 28</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(28)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-29.png" alt="سيارة خاصة 29"><div class="car-info"><div class="car-title">سيارة خاصة 29</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(29)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-30.png" alt="سيارة خاصة 30"><div class="car-info"><div class="car-title">سيارة خاصة 30</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(30)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-31.png" alt="سيارة خاصة 31"><div class="car-info"><div class="car-title">سيارة خاصة 31</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(31)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-32.png" alt="سيارة خاصة 32"><div class="car-info"><div class="car-title">سيارة خاصة 32</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(32)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-33.png" alt="سيارة خاصة 33"><div class="car-info"><div class="car-title">سيارة خاصة 33</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(33)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-34.png" alt="سيارة خاصة 34"><div class="car-info"><div class="car-title">سيارة خاصة 34</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(34)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-35.png" alt="سيارة خاصة 35"><div class="car-info"><div class="car-title">سيارة خاصة 35</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(35)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-36.png" alt="سيارة خاصة 36"><div class="car-info"><div class="car-title">سيارة خاصة 36</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(36)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-37.png" alt="سيارة خاصة 37"><div class="car-info"><div class="car-title">سيارة خاصة 37</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(37)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-38.png" alt="سيارة خاصة 38"><div class="car-info"><div class="car-title">سيارة خاصة 38</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(38)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-39.png" alt="سيارة خاصة 39"><div class="car-info"><div class="car-title">سيارة خاصة 39</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(39)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-40.png" alt="سيارة خاصة 40"><div class="car-info"><div class="car-title">سيارة خاصة 40</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(40)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-41.png" alt="سيارة خاصة 41"><div class="car-info"><div class="car-title">سيارة خاصة 41</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(41)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-42.png" alt="سيارة خاصة 42"><div class="car-info"><div class="car-title">سيارة خاصة 42</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(42)">شراء</button></div></div></div>
+<div class="card car-card"><img src="assets/images/cars/car-43.png" alt="سيارة خاصة 43"><div class="car-info"><div class="car-title">سيارة خاصة 43</div><div class="car-bottom"><span class="price">22.99 ر.س</span><button class="buy-btn" onclick="startPurchase(43)">شراء</button></div></div></div></div></div></section>
+
+<section id="orders" class="section"><div class="container"><h2 class="section-title">الطلبات</h2><p class="section-subtitle">لوحة طلبات المتجر للمشرفين</p><div id="ordersList" class="list"></div></div></section>
+
+<section id="supervisors" class="section"><div class="container"><h2 class="section-title">مشرفين الموقع</h2><p class="section-subtitle">هذه الصفحة لصاحب الموقع فقط</p>
+<div class="panel"><div class="panel-head"><div><h3>إضافة مشرف</h3><small style="color:#94a3b8">أضف البريد المستخدم في Discord</small></div><button class="plus" onclick="toggleSupervisorForm()">+</button></div>
+<div id="supervisorForm" class="form-row hidden"><input id="supervisorEmail" type="email" placeholder="name@example.com"><button class="action" onclick="addSupervisor()">إضافة</button></div><div id="supervisorsList" class="list"></div></div>
+</div></section>
+
+<div id="profileModal" class="modal"><div class="modal-box"><div class="modal-head"><h2>الملف الشخصي</h2><button class="close-btn" onclick="closeModal('profileModal')">✕</button></div>
+<div class="profile"><img id="profileAvatar"><h3 id="profileName"></h3><div id="profileEmail" style="color:#94a3b8"></div><div id="profileId" style="color:#64748b;font-size:12px;margin-top:5px"></div>
+<div class="profile-actions"><button class="action" onclick="openMyOrders()">طلباتي</button><button class="action danger" onclick="logout()">تسجيل خروج</button></div><div id="myOrdersList" class="list" style="width:100%;margin-top:18px"></div></div></div></div>
+
+<div id="paymentModal" class="modal"><div class="modal-box"><div class="modal-head"><div><h2>إتمام الشراء</h2><div id="paymentProduct" style="color:#94a3b8"></div></div><button class="close-btn" onclick="closeModal('paymentModal')">✕</button></div>
+<div id="paymentNotice" class="notice">الدفع عن طريق ميسّر</div><div id="moyasar-box" class="mysr-form"></div></div></div>
+
+<script src="assets/js/config.js"></script><script src="assets/js/app.js"></script>
+</body></html>
