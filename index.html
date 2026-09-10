@@ -1067,6 +1067,31 @@
             font-weight: 700;
         }
 
+        .nav-links .top-nav-btn {
+            display: inline-block !important;
+            color: #ffffff !important;
+            background: #1d4ed8;
+            border: 1px solid #3b82f6;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+            text-decoration: none;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .nav-links .top-nav-btn:hover {
+            background: #2563eb;
+            color: #ffffff !important;
+            transform: translateY(-1px);
+        }
+
+        .nav-links {
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -1101,42 +1126,42 @@
 
             <a onclick="switchSection('home')"
                id="link-home"
-               class="active">
+               class="active top-nav-btn">
                 الرئيسية
             </a>
 
             <a onclick="switchSection('team')"
-               id="link-team">
+               id="link-team" class="top-nav-btn">
                 الإدارة
             </a>
 
+            <a onclick="switchSection('supervisors'); renderStaffList();"
+               id="link-supervisors"
+               class="supervisors-nav-link top-nav-btn">
+                مشرفين الموقع
+            </a>
+
             <a onclick="switchSection('rules')"
-               id="link-rules">
+               id="link-rules" class="top-nav-btn">
                 القوانين
             </a>
 
             <a onclick="switchSection('store')"
-               id="link-store">
+               id="link-store" class="top-nav-btn">
                 المتجر
             </a>
 
             <a onclick="openProfileFromMenu()"
-               id="link-profile">
+               id="link-profile" class="top-nav-btn">
                 الملف الشخصي
             </a>
 
             <a onclick="switchSection('store-admin'); renderAdminOrders();"
                id="link-store-admin"
-               style="display:none;">
+               style="display:none;" class="top-nav-btn">
                 الطلبات
             </a>
-
-            <a onclick="switchSection('supervisors'); renderStaffList();"
-               id="link-supervisors">
-                مشرفين الموقع
-            </a>
-
-        </div>
+</div>
 
         <div></div>
 
@@ -2753,7 +2778,7 @@
             }
 
             if (supervisorsLink) {
-                supervisorsLink.style.display = '';
+                supervisorsLink.style.setProperty('display', 'inline-block', 'important');
             }
         }
 
