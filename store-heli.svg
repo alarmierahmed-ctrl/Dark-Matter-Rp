@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+<defs>
+  <linearGradient id="bg" x1="0" x2="1">
+    <stop offset="0%" stop-color="#05070d"/>
+    <stop offset="100%" stop-color="#101a2e"/>
+  </linearGradient>
+  <linearGradient id="glow" x1="0" x2="1">
+    <stop offset="0%" stop-color="#1e3a8a"/>
+    <stop offset="100%" stop-color="#38bdf8"/>
+  </linearGradient>
+</defs>
+<rect width="1200" height="700" fill="url(#bg)"/>
+<circle cx="920" cy="130" r="90" fill="#0f172a" opacity="0.6"/>
+<g fill="none" stroke="url(#glow)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M250 340 H830"/>
+  <path d="M470 290 H760"/>
+  <path d="M560 300 V250"/>
+  <path d="M790 340 C900 340 960 380 960 435 C960 485 900 520 820 520 H500 C420 520 365 480 365 435 C365 390 420 350 500 350 H780"/>
+  <path d="M485 520 L445 585 H805 L765 520"/>
+  <path d="M380 585 H850"/>
+  <path d="M930 360 L1060 315"/>
+</g>
+<text x="600" y="635" fill="#f8fafc" font-size="56" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700">انتقال الهليكوبترات</text>
+</svg>

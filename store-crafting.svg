@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700">
+<defs>
+  <linearGradient id="bg2" x1="0" x2="1">
+    <stop offset="0%" stop-color="#05070d"/>
+    <stop offset="100%" stop-color="#151f33"/>
+  </linearGradient>
+  <linearGradient id="wood" x1="0" x2="1">
+    <stop offset="0%" stop-color="#7c3f12"/>
+    <stop offset="100%" stop-color="#c26d2d"/>
+  </linearGradient>
+  <linearGradient id="steel" x1="0" x2="1">
+    <stop offset="0%" stop-color="#7dd3fc"/>
+    <stop offset="100%" stop-color="#1d4ed8"/>
+  </linearGradient>
+</defs>
+<rect width="1200" height="700" fill="url(#bg2)"/>
+<g>
+  <rect x="260" y="240" width="680" height="55" rx="10" fill="url(#wood)"/>
+  <rect x="300" y="295" width="600" height="160" rx="18" fill="#111827" stroke="url(#steel)" stroke-width="8"/>
+  <rect x="350" y="345" width="120" height="60" rx="8" fill="#1e293b"/>
+  <rect x="500" y="345" width="120" height="60" rx="8" fill="#1e293b"/>
+  <rect x="650" y="345" width="120" height="60" rx="8" fill="#1e293b"/>
+  <rect x="820" y="345" width="40" height="80" rx="6" fill="#334155"/>
+  <rect x="840" y="155" width="15" height="145" fill="#94a3b8"/>
+  <path d="M848 165 C905 165 955 195 980 248" fill="none" stroke="#38bdf8" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="985" cy="255" r="26" fill="#38bdf8"/>
+  <rect x="330" y="455" width="28" height="140" fill="#8b5e34"/>
+  <rect x="842" y="455" width="28" height="140" fill="#8b5e34"/>
+  <rect x="430" y="455" width="28" height="140" fill="#8b5e34"/>
+  <rect x="742" y="455" width="28" height="140" fill="#8b5e34"/>
+</g>
+<text x="600" y="650" fill="#f8fafc" font-size="58" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700">طاولة تصنيع</text>
+</svg>
